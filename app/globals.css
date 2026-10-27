@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --ivory: #f7f2ea;
+  --charcoal: #202124;
+  --amber: #b8753b;
+  --peach: #e9b6a4;
+  --mist: #a8c8d6;
+  --line: #e8ded2;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--ivory); color: var(--charcoal); font-family: 'Manrope', Arial, sans-serif; }
+button, input, select, textarea { font: inherit; }
+button { cursor: pointer; }
+
+@layer components {
+  .eyebrow { @apply text-[10px] font-bold uppercase tracking-[0.28em] text-amber; }
+  .display-title { @apply font-display font-semibold tracking-[-0.03em]; }
+  .soft-border { @apply border border-line; }
+  .btn-primary { @apply inline-flex items-center justify-center gap-2 rounded-full bg-charcoal px-5 py-3 text-sm font-bold text-ivory transition hover:-translate-y-0.5 hover:bg-amber; }
+  .btn-ghost { @apply inline-flex items-center justify-center gap-2 rounded-full border border-charcoal/20 px-5 py-3 text-sm font-bold text-charcoal transition hover:border-amber hover:text-amber; }
+  .input { @apply w-full rounded-2xl border border-line bg-white/70 px-4 py-3 text-sm outline-none transition placeholder:text-charcoal/35 focus:border-amber focus:ring-2 focus:ring-amber/10; }
+  .panel { @apply rounded-[28px] border border-line bg-white/65 shadow-card; }
+}
+
+::selection { background: var(--peach); color: var(--charcoal); }

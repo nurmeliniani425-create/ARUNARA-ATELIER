@@ -1,0 +1,90 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  directUrl = env("DATABASE_URL_UNPOOLED")
+}
+
+enum TransactionType {
+  income
+  expense
+}
+
+enum MaterialGroup {
+  liquid
+  packaging
+  equipment
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  name         String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Product {
+  id         String   @id
+  name       String
+  subtitle   String
+  price      Int
+  stock      Int      @default(0)
+  accent     String
+  size       String
+  copy       String
+  topNote    String
+  middleNote String
+  baseNote   String
+  moments    String[]
+  category   String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model RawMaterial {
+  id          String        @id @default(cuid())
+  name        String
+  unit        String
+  quantity    Float         @default(0)
+  reorderAt   Float         @default(0)
+  group       MaterialGroup
+  costPerUnit Float         @default(0)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+}
+
+model Batch {
+  id             String   @id
+  sku            String
+  productName    String
+  volume         String
+  amount         Float
+  unitsProduced  Int
+  supplier       String
+  supplierBatch  String
+  startedAt      DateTime
+  targetFinishAt DateTime
+  status         String
+  clarity        Boolean  @default(false)
+  sprayer        Boolean  @default(false)
+  rejected       Int      @default(0)
+  createdAt      DateTime @default(now())
+}
+
+model Transaction {
+  id             String          @id @default(cuid())
+  type           TransactionType
+  date           DateTime
+  description    String
+  channel        String
+  amount         Int
+  productId      String?
+  quantity       Int?
+  shippingStatus String?
+  createdAt      DateTime        @default(now())
+}
